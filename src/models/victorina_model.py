@@ -5,7 +5,7 @@ from src.models.entities.victorina import Questions
 class VictorinaModel:
 
     @classmethod
-    def get_victorina(self):
+    def get_questions(self):
         try:
             connection = get_connection()
             questions = []
@@ -20,6 +20,26 @@ class VictorinaModel:
                     questions.append(question.to_json())
             connection.close()
             return questions
+
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
+    def get_question(self, id):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT id, text_question, answer_question, date_created FROM questions WHERE id = %s", (id,))
+                row = cursor.fetchone()
+
+                question = None
+                if row != None:
+                    question = Questions(row[0], row[1], row[2], row[3])
+                    question = question.to_json()
+
+            connection.close()
+            return question
 
         except Exception as ex:
             raise Exception(ex)

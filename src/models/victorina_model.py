@@ -43,7 +43,6 @@ class VictorinaModel:
         except Exception as ex:
             raise Exception(ex)
 
-
     @classmethod
     def add_question(self, question):
         try:
@@ -60,13 +59,28 @@ class VictorinaModel:
         except Exception as ex:
             raise Exception(ex)
 
-
     @classmethod
     def delete_question(self, question):
         try:
             connection = get_connection()
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM questions WHERE id = %s", (question.id,))
+                affected_rows = cursor.rowcount
+                connection.commit()
+            connection.close()
+            return affected_rows
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
+    def update_question(self, question):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """UPDATE questions SET text_question=%s, answer_question=%s, date_created=%s 
+                        WHERE id = %s""", (question.text_question, question.answer_question,
+                                           question.date_created, question.id))
                 affected_rows = cursor.rowcount
                 connection.commit()
             connection.close()

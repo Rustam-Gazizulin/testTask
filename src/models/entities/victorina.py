@@ -1,5 +1,6 @@
 from src.utils.date_format import DateFormat
 
+
 class Questions:
 
     def __init__(self, id, text_question=None, answer_question=None, date_created=None) -> None:

@@ -2,7 +2,6 @@ import datetime
 
 
 # Функция редактирования вывода данных типа DateTime
-
 class DateFormat():
     @classmethod
     def convert_date(self, date):

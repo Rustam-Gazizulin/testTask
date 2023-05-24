@@ -5,6 +5,7 @@ from src.models.entities.victorina import Questions
 
 main = Blueprint('victorina_blueprint', __name__)
 
+
 # Вывод списка вопросов
 @main.route('/')
 def get_questions():
@@ -13,6 +14,7 @@ def get_questions():
         return jsonify(questions)
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
+
 
 # Вывод 1 вопроса по указанному id
 @main.route('/<id>')

@@ -3,7 +3,6 @@ from src.models.entities.victorina import Questions
 
 
 class VictorinaModel:
-
     @classmethod
     def get_questions(self):
         try:
@@ -41,5 +40,22 @@ class VictorinaModel:
             connection.close()
             return question
 
+        except Exception as ex:
+            raise Exception(ex)
+
+
+    @classmethod
+    def add_question(self, question):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """INSERT INTO questions (id, text_question, answer_question, date_created) 
+                        VALUES (%s, %s, %s, %s)""", (question.id, question.text_question, question.answer_question,
+                                                     question.date_created))
+                affected_rows = cursor.rowcount
+                connection.commit()
+            connection.close()
+            return affected_rows
         except Exception as ex:
             raise Exception(ex)

@@ -59,3 +59,17 @@ class VictorinaModel:
             return affected_rows
         except Exception as ex:
             raise Exception(ex)
+
+
+    @classmethod
+    def delete_question(self, question):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM questions WHERE id = %s", (question.id,))
+                affected_rows = cursor.rowcount
+                connection.commit()
+            connection.close()
+            return affected_rows
+        except Exception as ex:
+            raise Exception(ex)

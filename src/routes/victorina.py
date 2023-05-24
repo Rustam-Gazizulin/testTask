@@ -47,3 +47,18 @@ def add_question():
 
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
+
+
+@main.route('/delete/<id>', methods=['DELETE'])
+def delete_question(id):
+    try:
+        question = Questions(id)
+
+        affected_rows = VictorinaModel.delete_question(question)
+        if affected_rows == 1:
+            return jsonify(question.id)
+        else:
+            return jsonify({"message": "Ошибка такого фильма нет в базе данных"}), 404
+
+    except Exception as ex:
+        return jsonify({'message': str(ex)}), 500

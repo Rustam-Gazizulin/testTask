@@ -1,9 +1,12 @@
+import os
+
 from flask import Blueprint, jsonify, request
 from src.models.victorina_model import VictorinaModel
 from src.models.entities.victorina import Questions
-
+from src.utils.request_data import request_to_api
 
 main = Blueprint('victorina_blueprint', __name__)
+api_url = os.getenv('API_URL')
 
 
 # Вывод списка вопросов
@@ -31,24 +34,27 @@ def get_question(id):
 
 
 # Добавление вопроса в БД самостоятельно
-@main.route('/add', methods=['POST'])
-def add_question():
-    try:
-        answer_question = request.json['answer_question']
-        text_question = request.json['text_question']
-        date_created = request.json['date_created']
-        id = request.json['id']
-        question = Questions(id, answer_question, text_question, date_created)
+@main.route('/add/<count>', methods=['POST'])
+def add_question(count):
+    list_question = request_to_api(api_url, count)
+    for quest in list_question:
+        try:
+            answer_question = quest['answer_question']
+            text_question = quest['text_question']
+            date_created = quest['date_created']
+            id = quest['id']
+            question = Questions(id, answer_question, text_question, date_created)
 
-        affected_rows = VictorinaModel.add_question(question)
+            affected_rows = VictorinaModel.add_question(question)
 
-        if affected_rows == 1:
-            return jsonify(question.id)
-        else:
-            return jsonify({"message": "Ошибка создания вопроса проверьте корректность полей"}), 500
+            if affected_rows == 1:
+                continue
+            else:
+                return jsonify({"message": "Ошибка создания вопроса проверьте корректность полей"}), 500
 
-    except Exception as ex:
-        return jsonify({'message': str(ex)}), 500
+        except Exception as ex:
+            return jsonify({'message': str(ex)}), 500
+    return 'Вопросы сгенерированы'
 
 
 # Обновление данных существующего вопроса

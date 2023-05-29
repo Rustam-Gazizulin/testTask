@@ -1,4 +1,4 @@
-from src.database.db import get_connection
+from database.db import get_connection
 
 
 # Функция для получения списка уникальных id из Базы данных

@@ -1,6 +1,6 @@
 import requests
 
-from src.utils.data_cheking import get_id_database
+from utils.data_cheking import get_id_database
 
 
 # Функция запроса данных с АПИ и конвертация для БД

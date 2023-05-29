@@ -1,5 +1,5 @@
-from src.database.db import get_connection
-from src.models.entities.victorina import Questions
+from database.db import get_connection
+from models.entities.victorina import Questions
 
 
 class VictorinaModel:

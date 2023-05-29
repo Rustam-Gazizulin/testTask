@@ -1,9 +1,10 @@
 import os
 
 from flask import Blueprint, jsonify, request
-from src.models.victorina_model import VictorinaModel
-from src.models.entities.victorina import Questions
-from src.utils.request_data import request_to_api
+
+from models.entities.victorina import Questions
+from models.victorina_model import VictorinaModel
+from utils.request_data import request_to_api
 
 main = Blueprint('victorina_blueprint', __name__)
 api_url = os.getenv('API_URL')

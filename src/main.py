@@ -1,5 +1,4 @@
 from flask import Flask
-from config import config
 from database.create_table import create_table
 from routes import victorina
 
@@ -15,9 +14,7 @@ def page_not_found():
 
 
 if __name__ == '__main__':
-    app.config.from_object(config['development'])
 
     app.register_blueprint(victorina.main, url_prefix='/api')
 
-    app.register_error_handler(404, page_not_found)
-    app.run()
+    app.run(debug=True, host='0.0.0.0', port=5000)

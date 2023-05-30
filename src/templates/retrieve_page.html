@@ -20,10 +20,11 @@
               <li>Текст вопроса:  {{ quest['answer_question'] }}</li><br>
               <li>Дата публикации вопроса:  {{ quest['date_created'] }}</li>
             </ul>
-            <a href="/api" type="button" class="w-100 btn btn-lg btn-outline-primary">Редактировать вопрос</a>
+            <form method="post">
+            <a href="/api/update/{{ quest['id'] }}" type="button" class="w-100 btn btn-lg btn-outline-primary">Редактировать вопрос</a>
               <div><br></div>
-
-            <a href="/api" type="button" class="w-100 btn btn-lg btn-outline-primary">Удалить вопрос из БД</a>
+            </form>
+            <a href="/api/delete/{{ quest['id'] }}" type="button" class="w-100 btn btn-lg btn-outline-primary">Удалить вопрос из БД</a>
           </div>
         </div>
       </div>

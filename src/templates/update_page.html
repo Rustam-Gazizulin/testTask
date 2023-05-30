@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Редактировать вопрос</title>
+{% endblock %}
+
+{% block body %}
+    <div class="cotainer">
+        <h1>Введите новые данные</h1>
+        <form action="/api/update/{{question.id}}" method="POST">
+            <input type="text" class="form-control" name="text_question" placeholder="Введите ответ на вопрос" value="{{ question['text_question'] }}"><br>
+            <input type="text" class="form-control" name="answer_question" placeholder="Введите текст вопроса" value="{{ question['answer_question'] }}"><br>
+            <input type="text" class="form-control" name="date_created" placeholder="yyyy-mm-dd"><br>
+            <button class="btn btn-success" type="submit">Обновить данные</button><br>
+
+        </form>
+    </div>
+{% endblock %}

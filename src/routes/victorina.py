@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, redirect
 
 from models.entities.victorina import Questions
 from models.victorina_model import VictorinaModel
@@ -59,38 +59,39 @@ def add_question():
                     return jsonify({'message': str(ex)}), 500
         else:
             return render_template('generate.html')
-        return render_template('finish_generate.html')
+        return redirect('/api')
     return render_template('generate.html')
 
+
 # Обновление данных существующего вопроса
-@main.route('/update/<id>', methods=['PUT'])
+@main.route('/update/<id>', methods=['POST', 'GET'])
 def update_question(id):
-    try:
-        answer_question = request.json['answer_question']
-        text_question = request.json['text_question']
-        date_created = request.json['date_created']
-        question = Questions(id, answer_question, text_question, date_created)
+    question = VictorinaModel.get_question(id)
 
-        affected_rows = VictorinaModel.update_question(question)
+    if request.method == 'POST':
+        id = question['id']
+        answer_question = request.form['answer_question']
+        text_question = request.form['text_question']
+        date_created = request.form['date_created']
+        quest = Questions(id, answer_question, text_question, date_created)
 
-        if affected_rows == 1:
-            return jsonify(question.id)
-        else:
-            return jsonify({"message": "Ошибка обновления такого вопроса нет в базе"}), 404
+        VictorinaModel.update_question(quest)
 
-    except Exception as ex:
-        return jsonify({'message': str(ex)}), 500
+        return redirect('/api')
+
+    return render_template('update_page.html', question=question)
 
 
 # Удаление из БД вопроса по ID
-@main.route('/delete/<id>', methods=['DELETE'])
+@main.route('/delete/<id>')
 def delete_question(id):
     try:
         question = Questions(id)
 
         affected_rows = VictorinaModel.delete_question(question)
         if affected_rows == 1:
-            return jsonify(question.id)
+            # return render_template('delete_question.html')
+            return redirect('/api')
         else:
             return jsonify({"message": "Ошибка такого фильма нет в базе данных"}), 404
 

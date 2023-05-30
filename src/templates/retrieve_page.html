@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Детальная информация о вопросе</title>
+{% endblock %}
+
+{% block body %}
+
+ <main>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Вопросы из базы данных</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>ID вопроса:  {{ quest['id'] }}</li><br>
+              <li>Правильный ответ на вопрос:  {{ quest['text_question'] }}</li><br>
+              <li>Текст вопроса:  {{ quest['answer_question'] }}</li><br>
+              <li>Дата публикации вопроса:  {{ quest['date_created'] }}</li>
+            </ul>
+            <a href="/api" type="button" class="w-100 btn btn-lg btn-outline-primary">Редактировать вопрос</a>
+              <div><br></div>
+
+            <a href="/api" type="button" class="w-100 btn btn-lg btn-outline-primary">Удалить вопрос из БД</a>
+          </div>
+        </div>
+      </div>
+ </main>
+
+{% endblock %}

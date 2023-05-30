@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Генератор</title>
+    <title>Генерация вопросов</title>
 {% endblock %}
 
 {% block body %}
     <div class="cotainer">
         <h1>Введите количество вопросов</h1>
-        <p>Сайт генерации и сохранения вопросов для викторины </p>
+        <form method="post">
+            <input type="number" class="form-control" name="count" placeholder="Количество проставить цифрой!"><br>
+            <button class="btn btn-success" type="submit">Запустить генератор</button><br>
+
+        </form>
     </div>
 {% endblock %}

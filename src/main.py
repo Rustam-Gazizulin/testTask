@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from database.create_table import create_table
 from routes import victorina
 
@@ -8,9 +8,9 @@ app = Flask(__name__)
 create_table()
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def page_not_found():
-    return '<h1>Стартовая страница</h1>'
+    return render_template('start_page.html')
 
 
 if __name__ == '__main__':

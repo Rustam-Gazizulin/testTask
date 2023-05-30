@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 
 from models.entities.victorina import Questions
 from models.victorina_model import VictorinaModel
@@ -11,11 +11,11 @@ api_url = os.getenv('API_URL')
 
 
 # Вывод списка вопросов
-@main.route('/')
+@main.route('/', methods=['GET'])
 def get_questions():
     try:
         questions = VictorinaModel.get_questions()
-        return jsonify(questions)
+        return render_template('list_question.html', data=questions)
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
 

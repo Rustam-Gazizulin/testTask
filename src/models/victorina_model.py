@@ -29,7 +29,7 @@ class VictorinaModel:
             connection = get_connection()
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "SELECT id, text_question, answer_question, date_created FROM questions WHERE id = %s", (id,))
+                    "SELECT id, answer_question, text_question, date_created FROM questions WHERE id = %s", (id,))
                 row = cursor.fetchone()
 
                 question = None
@@ -49,8 +49,8 @@ class VictorinaModel:
             connection = get_connection()
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """INSERT INTO questions (id, text_question, answer_question, date_created) 
-                        VALUES (%s, %s, %s, %s)""", (question.id, question.text_question, question.answer_question,
+                    """INSERT INTO questions (id, answer_question, text_question, date_created) 
+                        VALUES (%s, %s, %s, %s)""", (question.id, question.answer_question, question.text_question,
                                                      question.date_created))
                 affected_rows = cursor.rowcount
                 connection.commit()

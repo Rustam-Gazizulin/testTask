@@ -3,7 +3,7 @@ from utils.date_format import DateFormat
 
 class Questions:
 
-    def __init__(self, id, text_question=None, answer_question=None, date_created=None) -> None:
+    def __init__(self, id, answer_question=None, text_question=None, date_created=None) -> None:
         self.id = id
         self.text_question = text_question
         self.answer_question = answer_question

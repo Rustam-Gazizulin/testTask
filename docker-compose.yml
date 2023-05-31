@@ -4,7 +4,6 @@ services:
   api:
     build:
       context: .
-    image: rgazizulin/generator_question
     restart: always
     env_file:
       - .env
@@ -16,7 +15,6 @@ services:
 
   web:
     build: nginx
-    image: rgazizulin/generator_question
     depends_on:
       api:
         condition: service_started

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   api:
-    image: rgazizulin/generator_question:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    image: rgazizulin/testtask_api:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -18,7 +18,7 @@ services:
       - 5000:5000
 
   web:
-    image: rgazizulin/generator_question:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    image: rgazizulin/testtask_web:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     depends_on:
       api:
         condition: service_started
